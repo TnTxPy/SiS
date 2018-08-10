@@ -19,18 +19,31 @@ import java.util.logging.Logger;
  */
 public class ControleSenha {
     BancoDeDados conex = new BancoDeDados();
-    public void Criar(Senha se){
+    public void Criar(Senha se) throws SQLException{
         Connection con = null;
         PreparedStatement stmt = null;
-        try {
-            con = conex.get();
-            stmt = con.prepareStatement("INSERT INTO senhas (senha,desc) VALUES (?,?) ");
-            stmt.setInt(1, se.getSenha());
-            stmt.setString(2, se.getDesc());
-            stmt.execute();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ControleSenha.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        con = conex.get();
+        stmt = con.prepareStatement("INSERT INTO senhas (senha,desc) VALUES (?,?) ");
+        stmt.setInt(1, se.getSenha());
+        stmt.setString(2, se.getDesc());
+        stmt.execute();
+        con.close();
+    }
+    public void Apagar(Senha se) throws SQLException{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        con = conex.get();
+        stmt = con.prepareStatement("DELETE * FROM senhas WHERE senha = ?");
+        stmt.setInt(1, se.getSenha());
+        stmt.execute();
+        conex.close(con, stmt);
+    }
+    public void Resetar() throws SQLException{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        con = conex.get();
+        stmt = con.prepareStatement("DELETE * FROM senhas");
+        stmt.execute();
+        conex.close(con, stmt);
     }
 }
