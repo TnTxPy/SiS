@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Lucas
+ * @author Lucas TESTAR
  */
 public class ControleSenha {
     BancoDeDados conex = new BancoDeDados();
