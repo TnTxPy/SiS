@@ -1,7 +1,7 @@
 # SiS 
 ## Sistema de Senha
 ### v1.0.2
-+ \ + Telas Adicionadas
++ \+ Telas Adicionadas
 
 		Adicionar Senha
 		
@@ -9,11 +9,11 @@
 		
 		Painel
 		
-+ \ + Tela implementada
++ \+ Tela implementada
 
 		Main
 		
-+ \ + Metodos na Classe ControleSenha
++ \+ Metodos na Classe ControleSenha
 
 		Chamar, Recebe Senha e inteiro, Retorna Vazio
 		
@@ -22,12 +22,12 @@
 		BuscaGeral, Retorna ArrayList de Senha
 		
 ### v1.0.1
-+ \ * BUG FIXES
++ \* BUG FIXES
 		
 		Corrigido bugs no controle de Senha
 		
 ### v1.0.0
-+ \ + Criação do Projeto
++ \+ Criação do Projeto
 
 
 		Inicialização da Ideia 10/08
