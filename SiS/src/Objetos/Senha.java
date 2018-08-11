@@ -5,9 +5,15 @@
  */
 package Objetos;
 
+import Controle.ControleSenha;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
- * @author Lucas
+ *Objeto da Senha, em breve 100% utilizavel
+ * 
  */
 public class Senha {
     private int senha;
@@ -39,5 +45,11 @@ public class Senha {
      */
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+    public void criar(String desc){
+        this.setDesc(desc);
+        ControleSenha co = new ControleSenha();
+        co.Criar(this);
+        
     }
 }

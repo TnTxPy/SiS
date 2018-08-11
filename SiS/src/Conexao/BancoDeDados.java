@@ -9,29 +9,41 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BancoDeDados {
+    
+    // Declarações CONSTANTES
+    // Driver de JDBC 
+    // URL DE CONEXAO DB
+    // USUARIO
+    // SENHA
+    
     final static String DRIVER ="com.mysql.jdbc.Driver";
     final static String URL = "jdbc:mysql://localhost:3306/SiS";
     final static String USER = "root";
     final static String PASS = "";
+    
+    
+    //Comando para conexão com o banco de dados
     public Connection get() throws SQLException{
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("[ERRO] Comando conex.GET ERRO: \n "+ex);
         }
         Connection con = null;
         con = DriverManager.getConnection(URL,USER,PASS);
         return con;
     }
+    //Comando para fechar a conexão
     public void close(Connection con){
         try {
             if(con!= null){
                 con.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("[ERRO] Comando conex.CLOSE ERRO: \n "+ex);
         }
     }
+    //Comando para fechar a conexão e stmt
     public void close(Connection con,PreparedStatement stmt){
         close(con);
         try {
@@ -39,9 +51,10 @@ public class BancoDeDados {
                 stmt.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("[ERRO] Comando conex.CLOSE STMT ERRO: \n "+ex);
         }
     }
+    //Comando para fechar a conexão e stmt e Rs
     public void close(Connection con,PreparedStatement stmt,ResultSet rs){
         close(con,stmt);
         try {
@@ -49,7 +62,7 @@ public class BancoDeDados {
                 rs.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BancoDeDados.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("[ERRO] Comando conex.CLOSE RS ERRO: \n "+ex);
         }
     }
 }

@@ -5,17 +5,41 @@
  */
 package View;
 
+import Conexao.BancoDeDados;
+import Controle.ControleSenha;
+import Objetos.Senha;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author Lucas
+ * @author lvsm9711081
  */
-public class ChamarSenha extends javax.swing.JPanel {
-
+public class ChamarSenha extends javax.swing.JFrame {
+    BancoDeDados conex = new BancoDeDados();
+    ControleSenha controle = new ControleSenha();
+    Senha senhaU = new Senha();
+    ArrayList<Senha> geral = new ArrayList<Senha>();
     /**
      * Creates new form ChamarSenha
      */
     public ChamarSenha() {
         initComponents();
+        
+        this.addWindowListener(new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent e) {
+        new Main().setVisible(true);
+        }
+        });
+        
+        geral = controle.buscaGeral();
+        for (int i = 0; i < geral.size(); i++) {
+            senhas.add(geral.get(i).getSenha()+" - "+ geral.get(i).getDesc());
+        }
+        
     }
 
     /**
@@ -27,19 +51,60 @@ public class ChamarSenha extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        chamar = new javax.swing.JButton();
+        senhas = new java.awt.Choice();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        chamar.setText("Chamar!");
+        chamar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chamarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chamar, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(senhas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(senhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chamar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void chamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chamarActionPerformed
+        // TODO add your handling code here:dddsd
+        
+        if(geral.isEmpty()){
+            JOptionPane.showMessageDialog(null,"É NECESSÁRIO PELO MENOS UMA SENHA PARA CHAMAR", "ERRO - INVALIDO",JOptionPane.ERROR_MESSAGE);
+        }else{
+            int selecionado = senhas.getSelectedIndex();
+            senhaU = geral.get(selecionado);
+            controle.chamar(senhaU.getSenha());
+            this.dispose();
+            new Main().setVisible(true);    
+        }
+        
+    }//GEN-LAST:event_chamarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chamar;
+    private java.awt.Choice senhas;
     // End of variables declaration//GEN-END:variables
 }
